@@ -142,7 +142,5 @@ app.post("/api/logout", async (req, res) => {
     res.status(200).json({message: "Logged out successfully"});
 })
 
-app.listen(PORT, ()=>{
-    connectToDB();
-    console.log(`Server is rnning on http://localhost:${PORT}`);
-});
+connectToDB();
+export default app;
