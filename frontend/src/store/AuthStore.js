@@ -3,7 +3,7 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-const API_URL = "https://movies-plateform-wheat.vercel.app/api/";
+const API_URL = import.meta.env.VITE_API_URL + "/api/";
 
 export const useAuthStore = create((set) => ({
     //initial states
