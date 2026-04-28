@@ -16,13 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
   origin: function(origin, callback) {
-    const allowed = [
-      process.env.CLIENT_URL,
-      /\.vercel\.app$/  // accepte tous les sous-domaines vercel
-    ];
-    if (!origin || allowed.some(a => 
-      typeof a === 'string' ? a === origin : a.test(origin)
-    )) {
+    if (!origin || origin.includes('vercel.app') || origin === process.env.CLIENT_URL) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
