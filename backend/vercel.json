@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "builds": [{"src": "server.js", "use": "@vercel/node"}],
+  "builds": [{ "src": "server.js", "use": "@vercel/node" }],
   "routes": [
-    {"src": "/api/(.*)", "dest": "server.js"},
-    {"src": "/(.*)", "dest": "server.js"}
+    {
+      "src": "/(.*)",
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+      "headers": {
+        "Access-Control-Allow-Origin": "https://movies-plateform-5yxh.vercel.app",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      },
+      "dest": "server.js"
+    }
   ]
 }
