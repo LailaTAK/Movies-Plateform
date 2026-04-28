@@ -1,23 +1,21 @@
-import {GoogleGenAI} from '@google/genai'
-
-const ai = new GoogleGenAI({
-    apiKey: import.meta.env.VITE_GOOGLE_GENAI_API_KEY
-})
-const config = {
-    ResponseMimeType: "text/plain",
-};
-const model = "gemini-2.0-flash";
-
 export async function getAIRecommendations(prompt) {
     try {
-        const response = await ai.models.generateContent({
-            model,
-            config,
-            contents: [{role: "user", parts: [{ text: prompt }]}],
+        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: "meta-llama/llama-3.1-8b-instruct:free",
+                messages: [{ role: "user", content: prompt }],
+                max_tokens: 1000,
+            })
         });
-        return response.candidates?.[0]?.content?.parts?.[0]?.text;
+        const data = await response.json();
+        return data.choices?.[0]?.message?.content;
     } catch (error) {
-        console.error("Error sending message: ", error)
+        console.error("Error: ", error);
         return null;
     }
 }
