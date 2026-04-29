@@ -7,7 +7,7 @@ export async function getAIRecommendations(prompt) {
                 "Authorization": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`
             },
             body: JSON.stringify({
-                model: "meta-llama/llama-3.1-8b-instruct:free",
+                model: "mistralai/mistral-7b-instruct:free",
                 messages: [{ role: "user", content: prompt }],
                 max_tokens: 1000,
             })
